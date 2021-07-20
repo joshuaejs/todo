@@ -8,8 +8,8 @@ import (
     "joshuaejs/todo"
 )
 
-// hardcoding the filename, for now
-const todoFileName = ".todo.json"
+// default filename
+var todoFileName = ".todo.json"
 
 func main() {
     // add some defaults to the help message
@@ -26,6 +26,11 @@ func main() {
     complete := flag.Int("complete", 0, "Item number to be completed")
 
     flag.Parse()
+
+    // check if ENV VAR for a custom filename is defined
+    if os.Getenv("TODO_FILENAME") != "" {
+        todoFileName = os.Getenv("TODO_FILENAME")
+    }
 
     // define an items List
     l := &todo.List{}
