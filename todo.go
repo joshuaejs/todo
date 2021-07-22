@@ -21,19 +21,19 @@ type List []item
 
 // String prints a formatted list using the fmt.Stringer interface
 func (l *List) String() string {
-    formatted := ""
+	formatted := ""
 
-    for k, t := range *l {
-        prefix := "  "
-        if t.Done {
-            prefix = "X "
-        }
+	for k, t := range *l {
+		prefix := "  "
+		if t.Done {
+			prefix = "X "
+		}
 
-        // adjust the item number k to print from 1
-        formatted += fmt.Sprintf("%s%d: %s\n", prefix, k+1, t.Task)
-    }
+		// adjust the item number k to print from 1
+		formatted += fmt.Sprintf("%s%d: %s\n", prefix, k+1, t.Task)
+	}
 
-    return formatted
+	return formatted
 }
 
 // Add creates a new ToDo and appends it to the list
@@ -51,7 +51,7 @@ func (l *List) Add(task string) {
 func (l *List) Complete(i int) error {
 	ls := *l
 	if i <= 0 || i > len(ls) {
-		return fmt.Errorf("Item %d does not exist", i)
+		return fmt.Errorf("item %d does not exist", i)
 	}
 
 	// adjusting for 0-based index
@@ -65,7 +65,7 @@ func (l *List) Complete(i int) error {
 func (l *List) Delete(i int) error {
 	ls := *l
 	if i <= 0 || i > len(ls) {
-		return fmt.Errorf("Item %d does not exist", i)
+		return fmt.Errorf("item %d does not exist", i)
 	}
 
 	// adjusting for 0-based index
@@ -83,7 +83,7 @@ func (l *List) Save(filename string) error {
 	return ioutil.WriteFile(filename, js, 0644)
 }
 
-// Get opens tghe provided filename, decodes the JSON, and parses it into a List
+// Get opens the provided filename, decodes the JSON, and parses it into a List
 func (l *List) Get(filename string) error {
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -97,4 +97,3 @@ func (l *List) Get(filename string) error {
 	}
 	return json.Unmarshal(file, l)
 }
-
