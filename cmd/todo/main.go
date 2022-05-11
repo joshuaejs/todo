@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"joshuaejs/todo"
+	"github.com/joshuaejs/todo"
 )
 
 // default filename
@@ -45,7 +45,7 @@ func main() {
 	add := flag.Bool("add", false, "Add task to the ToDo list")
 	list := flag.Bool("list", false, "List all tasks")
 	complete := flag.Int("complete", 0, "Item number to be completed")
-    del := flag.Int("del", 0, "Item number to be deleted")
+	del := flag.Int("del", 0, "Item number to be deleted")
 
 	flag.Parse()
 
@@ -91,12 +91,12 @@ func main() {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
-    case *del > 0:
-        // Delete the given task
-        if err := l.Delete(*del); err != nil {
-            fmt.Fprintln(os.Stderr, err)
-            os.Exit(1)
-        }
+	case *del > 0:
+		// Delete the given task
+		if err := l.Delete(*del); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
 		if err := l.Save(todoFileName); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)

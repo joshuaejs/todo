@@ -3,7 +3,6 @@ package todo
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"time"
 )
@@ -80,12 +79,12 @@ func (l *List) Save(filename string) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(filename, js, 0644)
+	return os.WriteFile(filename, js, 0644)
 }
 
 // Get opens the provided filename, decodes the JSON, and parses it into a List
 func (l *List) Get(filename string) error {
-	file, err := ioutil.ReadFile(filename)
+	file, err := os.ReadFile(filename)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil
